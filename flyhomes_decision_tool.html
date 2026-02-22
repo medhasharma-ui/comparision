@@ -44,11 +44,13 @@ html{scroll-behavior:smooth}
 body{font-family:var(--font-body);background:var(--bg);color:var(--text-primary);min-height:100vh;overflow-x:hidden;line-height:1.6}
 .container{position:relative;z-index:1;max-width:1340px;margin:0 auto;padding:2rem 1.5rem 4rem}
 
-header{text-align:center;padding:2.5rem 0 1.5rem;animation:fadeUp .8s ease-out}
-header .logo-mark{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-body);font-weight:600;font-size:.85rem;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
-header .logo-mark span{display:inline-block;width:8px;height:8px;background:var(--blue);border-radius:2px;transform:rotate(45deg)}
-header h1{font-family:var(--font-display);font-weight:400;font-size:clamp(1.7rem,4.5vw,2.8rem);line-height:1.15;color:var(--text-primary)}
-header p{margin-top:.5rem;color:var(--text-muted);font-size:.92rem;max-width:600px;margin-inline:auto}
+header{text-align:center;padding:2rem 0 1.5rem;animation:fadeUp .8s ease-out}
+header .logo-banner{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:.6rem}
+header .logo-banner .logo-text{font-family:var(--font-display);font-weight:400;font-size:1.65rem;color:var(--text-primary);letter-spacing:-.01em}
+header .logo-banner .logo-text .reg{font-size:.55em;vertical-align:super;margin-left:.08em;font-weight:300}
+header h1{font-family:var(--font-display);font-weight:400;font-size:clamp(1.1rem,3vw,1.6rem);line-height:1.15;color:var(--text-muted)}
+header .divider-line{width:48px;height:1px;background:var(--border);margin:.5rem auto}
+header p{margin-top:.4rem;color:var(--text-light);font-size:.82rem;max-width:600px;margin-inline:auto}
 
 /* ── Unified selector row ── */
 .selector-section{max-width:1060px;margin:1.5rem auto 1.5rem;animation:fadeUp .9s ease-out .1s both}
@@ -82,8 +84,14 @@ header p{margin-top:.5rem;color:var(--text-muted);font-size:.92rem;max-width:600
 .sel-btn.primary:hover{background:#1555c0;transform:translateY(-1px);box-shadow:var(--shadow-md)}
 .sel-count{text-align:center;margin-top:.4rem;font-size:.65rem;color:var(--text-light)}
 
-/* ── Inline LTV note inside hero ── */
+/* ── Inline notes inside hero ── */
 .ltv-note{margin-top:.75rem;padding-top:.6rem;border-top:1px solid var(--border-light);font-size:.72rem;color:var(--text-muted);line-height:1.55}
+.payoff-note{margin-top:.75rem;padding:.55rem .75rem;border-radius:6px;background:var(--amber-light);border:1px solid rgba(196,112,10,.15);font-size:.72rem;color:var(--text-secondary);line-height:1.55}
+.payoff-note strong{color:var(--text-primary)}
+.payoff-note .payoff-label{font-size:.55rem;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);font-weight:700;margin-bottom:.15rem}
+.payoff-breakdown{display:flex;gap:1rem;margin-top:.35rem;flex-wrap:wrap}
+.payoff-breakdown .pb-item{font-size:.65rem;color:var(--text-muted)}
+.payoff-breakdown .pb-item strong{font-family:var(--font-display);font-weight:500;color:var(--text-primary)}
 
 /* Hero */
 #rec-hero{margin:0 auto 0;max-width:940px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius) var(--radius) 0 0;padding:1.75rem 2rem 1.4rem;position:relative;overflow:hidden;animation:fadeUp .5s ease-out both;box-shadow:var(--shadow-md)}
@@ -112,11 +120,12 @@ header p{margin-top:.5rem;color:var(--text-muted);font-size:.92rem;max-width:600
 .input-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.65rem}
 .input-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.75rem .9rem;transition:border-color .3s,box-shadow .3s;box-shadow:var(--shadow-sm)}
 .input-card:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(24,99,220,.1)}
-.input-card label{display:block;font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:.22rem;font-weight:500}
-.input-card .input-wrap{display:flex;align-items:center;gap:.18rem}
-.input-card .dollar{color:var(--blue);font-weight:600;font-size:1rem}
+.input-card label{display:block;font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:.35rem;font-weight:500}
+.input-card .input-wrap{display:flex;align-items:center;gap:.3rem;background:var(--bg);border:1px solid var(--border-light);border-radius:6px;padding:.45rem .6rem;transition:border-color .3s,background .3s}
+.input-card:focus-within .input-wrap{background:#fff;border-color:rgba(24,99,220,.3)}
+.input-card .dollar{color:var(--blue);font-weight:600;font-size:1rem;flex-shrink:0}
 .input-card input{background:none;border:none;outline:none;color:var(--text-primary);font-family:var(--font-display);font-weight:500;font-size:1.05rem;width:100%}
-.input-card .hint{font-size:.55rem;color:var(--text-light);margin-top:.18rem;opacity:.7}
+.input-card .hint{font-size:.55rem;color:var(--text-light);margin-top:.25rem;opacity:.7}
 .input-row-2{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-top:.65rem}
 
 /* Computed */
@@ -141,6 +150,12 @@ header p{margin-top:.5rem;color:var(--text-muted);font-size:.92rem;max-width:600
 .program-card.recommended{border-color:var(--blue);box-shadow:0 0 0 1px rgba(24,99,220,.15),var(--shadow-md)}
 .program-card.recommended .rec-ribbon{position:absolute;top:11px;right:-25px;background:var(--blue);color:#fff;font-size:.46rem;font-weight:700;letter-spacing:.1em;padding:.15rem 2.1rem;transform:rotate(45deg)}
 .program-card.not-eligible{opacity:.35}
+.program-card.user-selected{border-color:var(--green);box-shadow:0 0 0 1px rgba(26,138,92,.15),var(--shadow-md)}
+.program-card.user-selected .rec-ribbon{position:absolute;top:11px;right:-25px;background:var(--green);color:#fff;font-size:.46rem;font-weight:700;letter-spacing:.1em;padding:.15rem 2.1rem;transform:rotate(45deg)}
+.card-select-btn{display:block;width:100%;margin-top:.6rem;padding:.38rem 0;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--text-muted);font-size:.62rem;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all .2s;text-align:center;letter-spacing:.03em}
+.card-select-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+.card-select-btn.active{background:var(--green-light);color:var(--green);border-color:rgba(26,138,92,.3);cursor:default}
+#rec-hero .badge.user-pick{background:var(--green-light);border-color:rgba(26,138,92,.2);color:var(--green)}
 
 .card-header{display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.8rem}
 .card-icon{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:800;flex-shrink:0;font-family:var(--font-body)}
@@ -214,7 +229,10 @@ footer{text-align:center;padding:1rem 0;color:var(--text-light);font-size:.6rem;
 <body>
 <div class="container">
   <header>
-    <div class="logo-mark"><span></span> Flyhomes</div>
+    <div class="logo-banner">
+      <span class="logo-text">Flyhomes<span class="reg">&reg;</span></span>
+    </div>
+    <div class="divider-line"></div>
     <h1>Program Decision Tool</h1>
     <p>Select programs, adjust LTV, enter details, and get an instant recommendation.</p>
   </header>
@@ -266,7 +284,7 @@ footer{text-align:center;padding:1rem 0;color:var(--text-light);font-size:.6rem;
       <div class="input-card"><label>GBC Value (Guaranteed Backup Contract)</label><div class="input-wrap"><span class="dollar">$</span><input type="text" id="in_gbc" value="450,000" inputmode="numeric"></div><div class="hint">Typically ~75% of fair market value</div></div>
       <div class="input-card"><label>Estimated Hold Period (Days)</label><div class="input-wrap"><input type="text" id="in_days" value="60" inputmode="numeric" style="color:var(--amber)"></div><div class="hint">Days until departing home sells (30–120 typical)</div></div>
     </div>
-    <button class="sel-btn primary" onclick="runAnalysis()" style="margin-top:1rem;display:flex;align-items:center;justify-content:center;gap:.4rem;width:100%;max-width:260px;margin-inline:auto">
+    <button class="sel-btn primary" onclick="userOverride=null;runAnalysis()" style="margin-top:1rem;display:flex;align-items:center;justify-content:center;gap:.4rem;width:100%;max-width:260px;margin-inline:auto">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Analyze Programs
     </button>
   </section>
@@ -292,8 +310,10 @@ const pct=n=>(n*100).toFixed(1)+'%';
 function pi(id){return parseFloat($(id).value.replace(/[^0-9.]/g,''))||0}
 document.querySelectorAll('.input-card input').forEach(inp=>{
   inp.addEventListener('blur',()=>{if(inp.id==='in_days')return;const v=parseFloat(inp.value.replace(/[^0-9.]/g,''));if(!isNaN(v))inp.value=Math.round(v).toLocaleString('en-US')});
-  inp.addEventListener('keydown',e=>{if(e.key==='Enter')runAnalysis()});
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter'){userOverride=null;runAnalysis()}});
+  inp.addEventListener('change',()=>{userOverride=null});
 });
+function selectProgram(id){userOverride=id;runAnalysis()}
 function gbcFee(g,bundled){const t=[[5e5,2500,0],[75e4,3500,1000],[1e6,5000,2500],[15e5,7500,2500],[2e6,10000,2500]];for(const[c,s,cr]of t)if(g<=c)return bundled?s-cr:s;return bundled?10000:10000}
 
 const PROGRAM_DEFS=[
@@ -306,6 +326,7 @@ const PROGRAM_DEFS=[
 ];
 let selectedPrograms=new Set(PROGRAM_DEFS.map(p=>p.id));
 let buyLTV=95;
+let userOverride=null; // program id manually chosen by user — null = system decides
 
 function renderSelector(){
   $('selector-chips').innerHTML=PROGRAM_DEFS.map(p=>`<span class="sel-chip${selectedPrograms.has(p.id)?' active':''}" onclick="toggleProgram('${p.id}')"><span class="chip-dot" style="background:${p.dotColor}"></span>${p.label}<span class="chip-tag ${p.tag}">${p.tag==='combo'?'Combo':'Single'}</span></span>`).join('');
@@ -365,11 +386,16 @@ function runAnalysis(){
 
   const allPrograms=[];
 
-  // 1. IE 1st
-  {const loan=Math.min(maxIE,2e6);const ok=M===0&&maxIE>=75000&&maxIE<=2e6;
-  const why=M>0?'Has mortgage → IE 2nd Lien':maxIE<75000?`IE loan ${fmt(maxIE)} < $75K min`:maxIE>2e6?'> $2M max':'';
-  const gf=gbcFee(G,false),orig=loan*.02,int=loan*.0999*(D/365);const cost=gf+orig+int,cash=gf+Math.max(dn5-loan,0);
-  allPrograms.push({id:'ie1',name:'Instant Equity — 1st Lien',short:'IE 1st Lien',icon:'ie1',letter:'IE1',color:'var(--amber)',tag:'single',eligible:ok,reason:why,loanAmt:loan,origFee:orig,origRate:'2.0%',interest:int,gbcFee:gf,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'1st lien on departing',bestFor:'Departing home is mortgage-free. Lowest IE origination (2.0%) to unlock equity.',risk:'9.99% interest accrues. Costs deducted from proceeds. GBC fee upfront.',speed:'~14d',complexity:2,proceedsUse:'IE repaid from sale. Surplus is yours.',maxLoanRule:'90% CLTV of GBC; min $75K; max $2M',term:'12-mo balloon',buyLtvLabel:'N/A',buyLoan:0,buyOrig:0,sellLoan:loan,sellOrig:orig})}
+  // 1. IE 1st (allows mortgage payoff: if M>0, total loan includes payoff of existing 1st lien)
+  {const ie1TotalRaw=g90; // 90% of GBC = total available regardless of mortgage
+  const ie1Total=Math.min(Math.max(ie1TotalRaw,0),2e6);
+  const ie1Payoff=M; // existing 1st lien to be paid off at closing
+  const ie1NetNew=Math.max(ie1Total-ie1Payoff,0); // incremental funds beyond payoff
+  const ok=ie1Total>=75000&&ie1Total<=2e6;
+  const why=ie1Total<75000?`IE loan ${fmt(ie1Total)} < $75K min`:ie1Total>2e6?'> $2M max':'';
+  const hasPayoff=M>0;
+  const gf=gbcFee(G,false),orig=ie1Total*.02,int=ie1Total*.0999*(D/365);const cost=gf+orig+int,cash=gf+Math.max(dn5-ie1NetNew,0);
+  allPrograms.push({id:'ie1',name:'Instant Equity — 1st Lien'+(hasPayoff?' (w/ Payoff)':''),short:'IE 1st Lien',icon:'ie1',letter:'IE1',color:'var(--amber)',tag:'single',eligible:ok,reason:why,loanAmt:ie1Total,origFee:orig,origRate:'2.0%',interest:int,gbcFee:gf,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'1st lien on departing',bestFor:hasPayoff?'Pays off existing 1st lien at closing. Full 90% CLTV at 2.0% origination. Lower rate than 2nd lien.':'Departing home is mortgage-free. Lowest IE origination (2.0%) to unlock equity.',risk:hasPayoff?'Includes payoff of existing mortgage. 9.99% interest accrues on full loan amount. GBC fee upfront.':'9.99% interest accrues. Costs deducted from proceeds. GBC fee upfront.',speed:'~14d',complexity:hasPayoff?3:2,proceedsUse:'IE repaid from sale. Surplus is yours.',maxLoanRule:'90% CLTV of GBC; min $75K; max $2M',term:'12-mo balloon',buyLtvLabel:'N/A',buyLoan:0,buyOrig:0,sellLoan:ie1Total,sellOrig:orig,hasPayoff,payoffAmt:ie1Payoff,netNewAmt:ie1NetNew})}
 
   // 2. IE 2nd
   {const raw=Math.max(g90-M,0),loan=Math.min(raw,2e6);const ok=M>0&&raw>=75000&&raw<=2e6;
@@ -383,14 +409,16 @@ function runAnalysis(){
   const orig=loan*bOrigRate,int=loan*.0999*(D/365);const gf=gbcFee(G,true);const cost=gf+orig+int,cash=gf+bDown;
   allPrograms.push({id:'bbys',name:`BBYS Cash Offer (${buyLTV}% LTV)`,short:'BBYS Cash Offer',icon:'bbys',letter:'FCO',color:'var(--blue)',tag:'single',eligible:ok,reason:why,loanAmt:loan,origFee:orig,origRate:bOrigLabel,interest:int,gbcFee:gf,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'1st lien on new home',bestFor:`Cash-like offer at ${buyLTV}% LTV. ${bDownLabel} down. Win in competition. Close ~10 days.`,risk:`9.99% interest on full bridge. ${buyLTV===95?'Higher 1.5% origination at 95% LTV.':'Lower origination but need 10% down.'}`,speed:'~10d',complexity:3,proceedsUse:'Bridge refinanced into long-term mortgage. Departing sale proceeds = surplus.',maxLoanRule:`${buyLTV}% LTV on new home; min $200K; max $2.5M`,term:'12-mo balloon',buyLtvLabel:buyLTV+'%',buyLoan:loan,buyOrig:orig,sellLoan:0,sellOrig:0})}
 
-  // 4. BBYS + IE 1st
+  // 4. BBYS + IE 1st (allows mortgage payoff on sell-side)
   {const buyL=bLoan,sellRaw=Math.max(g90,0),sellLoan=Math.min(sellRaw,2e6);
-  const ok=M===0&&sellLoan>=75000&&buyL>=2e5;
-  const why=M>0?'Has mortgage → BBYS + IE 2nd':sellLoan<75000?`Sell IE ${fmt(sellLoan)} < $75K min`:buyL<2e5?`Buy bridge < $200K min`:'';
+  const ok=sellLoan>=75000&&buyL>=2e5;
+  const why=sellLoan<75000?`Sell IE ${fmt(sellLoan)} < $75K min`:buyL<2e5?`Buy bridge < $200K min`:'';
+  const hasPayoff=M>0;
+  const bie1Payoff=M;const bie1NetNew=Math.max(sellLoan-M,0);
   const gf=gbcFee(G,true),bOrig=buyL*bOrigRate,sOrig=sellLoan*.02;
   const bInt=buyL*.0999*(D/365),sInt=sellLoan*.0999*(D/365);
-  const cost=gf+bOrig+sOrig+bInt+sInt;const ieNet=sellLoan-sOrig;const cash=gf+Math.max(bDown-ieNet,0)+bOrig;
-  allPrograms.push({id:'bie1',name:`BBYS + IE 1st (${buyLTV}% LTV)`,short:'BBYS + IE 1st',icon:'bie1',letter:'A+1',color:'var(--lime)',tag:'combo',eligible:ok,reason:why,loanAmt:buyL+sellLoan,origFee:bOrig+sOrig,origRate:`${bOrigLabel} buy + 2.0% sell`,interest:bInt+sInt,gbcFee:gf,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'1st lien new + 1st lien departing',bestFor:`No mortgage. Two-loan combo at ${buyLTV}% LTV. IE proceeds fund ${bDownLabel} down.`,risk:`Two loans accruing 9.99%. Buy-side at ${bOrigLabel} origination.`,speed:'~10–14d',complexity:4,proceedsUse:'Sell IE repaid from departing sale. Buy bridge refinanced.',maxLoanRule:`Buy: ${buyLTV}% LTV new. Sell: 90% CLTV of GBC`,term:'12-mo balloon (both)',buyLtvLabel:buyLTV+'%',buyLoan:buyL,buyOrig:bOrig,sellLoan,sellOrig:sOrig,buyInt:bInt,sellInt:sInt})}
+  const cost=gf+bOrig+sOrig+bInt+sInt;const ieNet=bie1NetNew-sOrig;const cash=gf+Math.max(bDown-Math.max(ieNet,0),0)+bOrig;
+  allPrograms.push({id:'bie1',name:`BBYS + IE 1st (${buyLTV}% LTV)`+(hasPayoff?' w/ Payoff':''),short:'BBYS + IE 1st',icon:'bie1',letter:'A+1',color:'var(--lime)',tag:'combo',eligible:ok,reason:why,loanAmt:buyL+sellLoan,origFee:bOrig+sOrig,origRate:`${bOrigLabel} buy + 2.0% sell`,interest:bInt+sInt,gbcFee:gf,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'1st lien new + 1st lien departing',bestFor:hasPayoff?`Pays off existing 1st lien. Two-loan combo at ${buyLTV}% LTV. IE net proceeds fund ${bDownLabel} down.`:`No mortgage. Two-loan combo at ${buyLTV}% LTV. IE proceeds fund ${bDownLabel} down.`,risk:hasPayoff?`Sell IE includes ${fmt(M)} mortgage payoff. Two loans accruing 9.99%.`:`Two loans accruing 9.99%. Buy-side at ${bOrigLabel} origination.`,speed:'~10–14d',complexity:hasPayoff?4:4,proceedsUse:'Sell IE repaid from departing sale. Buy bridge refinanced.',maxLoanRule:`Buy: ${buyLTV}% LTV new. Sell: 90% CLTV of GBC`,term:'12-mo balloon (both)',buyLtvLabel:buyLTV+'%',buyLoan:buyL,buyOrig:bOrig,sellLoan,sellOrig:sOrig,buyInt:bInt,sellInt:sInt,hasPayoff,payoffAmt:bie1Payoff,netNewAmt:bie1NetNew})}
 
   // 5. BBYS + IE 2nd
   {const buyL=bLoan,sellRaw=Math.max(g90-M,0),sellLoan=Math.min(sellRaw,2e6);
@@ -414,24 +442,44 @@ function runAnalysis(){
 
   // RECOMMENDATION
   const ep=programs.filter(p=>p.eligible&&p.liqPass);
-  let rec=null,ru=null;
+  let rec=null,ru=null,isUserPick=false;
   if(ep.length){
     const s=[...ep].sort((a,b)=>{const d=a.totalCost-b.totalCost;return Math.abs(d)>100?d:a.cashReq-b.cashReq});
     rec=s[0];
     if(L<bDown){const prov=ep.filter(p=>['ie1','ie2','bie1','bie2','cc'].includes(p.id));if(prov.length)rec=prov.sort((a,b)=>a.totalCost-b.totalCost)[0]}
+    // User override: if set and the program exists + is eligible, use it
+    if(userOverride){
+      const uo=programs.find(p=>p.id===userOverride&&p.eligible&&p.liqPass);
+      if(uo){rec=uo;isUserPick=true}
+      else{userOverride=null} // override invalid → clear it
+    }
     ru=s.find(p=>p.id!==rec.id)||null;
   }
 
   // HERO
   const oldNote=document.querySelector('#rec-hero .ltv-note');if(oldNote)oldNote.remove();
+  const oldPayoff=document.querySelector('#rec-hero .payoff-note');if(oldPayoff)oldPayoff.remove();
   const h=$('rec-hero'),rEl=$('runner-up');h.style.display='';
   if(rec){
     h.classList.remove('no-runner');$('rec-name').textContent=rec.name;
+    // Update badge: system recommendation vs user selection
+    const badgeEl=h.querySelector('.badge');
+    if(isUserPick){
+      badgeEl.className='badge user-pick';
+      badgeEl.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Your Selection`;
+    } else {
+      badgeEl.className='badge';
+      badgeEl.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01z"/></svg> Recommended Program`;
+    }
     const R={
-      ie1:`IE 1st Lien unlocks ${fmt(rec.loanAmt)} at 2.0% orig. Cost: ${fmt(rec.totalCost)} / ${D}d.`,
+      ie1:rec.hasPayoff
+        ?`IE 1st Lien: ${fmt(rec.loanAmt)} total (includes ${fmt(rec.payoffAmt)} existing mortgage payoff). Net new funds: ${fmt(rec.netNewAmt)}. 2.0% orig. Cost: ${fmt(rec.totalCost)} / ${D}d.`
+        :`IE 1st Lien unlocks ${fmt(rec.loanAmt)} at 2.0% orig. Cost: ${fmt(rec.totalCost)} / ${D}d.`,
       ie2:`IE 2nd Lien unlocks ${fmt(rec.loanAmt)} above ${fmt(M)} mortgage. Cost: ${fmt(rec.totalCost)} / ${D}d.`,
       bbys:`BBYS at ${buyLTV}% LTV: ${fmt(rec.loanAmt)} bridge, ${bDownLabel} down (${fmt(bDown)}), ${bOrigLabel} orig. Cost: ${fmt(rec.totalCost)} / ${D}d.`,
-      bie1:`Two-loan combo at ${buyLTV}% LTV: ${fmt(rec.buyLoan)} buy + ${fmt(rec.sellLoan)} sell IE. IE covers ${bDownLabel} down. Cost: ${fmt(rec.totalCost)} / ${D}d.`,
+      bie1:rec.hasPayoff
+        ?`Two-loan combo at ${buyLTV}% LTV: ${fmt(rec.buyLoan)} buy + ${fmt(rec.sellLoan)} sell IE (includes ${fmt(rec.payoffAmt)} payoff). Net new from IE: ${fmt(rec.netNewAmt)}. Cost: ${fmt(rec.totalCost)} / ${D}d.`
+        :`Two-loan combo at ${buyLTV}% LTV: ${fmt(rec.buyLoan)} buy + ${fmt(rec.sellLoan)} sell IE. IE covers ${bDownLabel} down. Cost: ${fmt(rec.totalCost)} / ${D}d.`,
       bie2:`Two-loan combo at ${buyLTV}% LTV: ${fmt(rec.buyLoan)} buy + ${fmt(rec.sellLoan)} sell IE (2nd). IE covers ${bDownLabel} down. Cost: ${fmt(rec.totalCost)} / ${D}d.`,
       cc:`Cross Collateral: ${fmt(rec.loanAmt)}, ${fmt(rec.cashReq)} out of pocket. No GBC. Cost: ${fmt(rec.totalCost)} / ${D}d. Primary only.`
     };
@@ -446,6 +494,22 @@ function runAnalysis(){
     // Append subtle LTV context note if applicable
     if(ltvNoteHTML && ['bbys','bie1','bie2'].includes(rec.id)){
       $('rec-stats').insertAdjacentHTML('afterend',ltvNoteHTML);
+    }
+    // Append payoff note if this program involves paying off existing 1st lien
+    if(rec.hasPayoff && M>0){
+      const sellLoanAmt=['bie1'].includes(rec.id)?rec.sellLoan:rec.loanAmt;
+      const payoffHTML=`<div class="payoff-note">
+        <div class="payoff-label">1st Lien Payoff Assumed</div>
+        This option assumes payoff of the existing 1st lien (${fmt(M)}) at closing. The full loan amount includes both the mortgage payoff and net new funds.
+        <div class="payoff-breakdown">
+          <div class="pb-item">Total Loan: <strong>${fmt(sellLoanAmt)}</strong></div>
+          <div class="pb-item">Existing 1st Lien Payoff: <strong>${fmt(rec.payoffAmt)}</strong></div>
+          <div class="pb-item">Net New Funds: <strong>${fmt(rec.netNewAmt)}</strong></div>
+        </div>
+      </div>`;
+      // Insert after rec-stats (or after ltv-note if present)
+      const insertTarget=document.querySelector('#rec-hero .ltv-note')||$('rec-stats');
+      insertTarget.insertAdjacentHTML('afterend',payoffHTML);
     }
     if(ru){rEl.style.display='';h.classList.remove('no-runner');const cd=ru.totalCost-rec.totalCost;$('ru-text').innerHTML=`<strong>${ru.name}</strong> — cost ${fmt(ru.totalCost)} (${cd>0?'+':''}${fmt(cd)}), cash ${fmt(ru.cashReq)}.`}
     else{rEl.style.display='none';h.classList.add('no-runner')}
@@ -468,8 +532,10 @@ function runAnalysis(){
         <div class="card-row"><span class="cr-label">Bridge Loan</span><span class="cr-value">${fmt(p.buyLoan)}</span></div>
         <div class="card-row"><span class="cr-label">Orig (${bOrigLabel})</span><span class="cr-value">${fmt(p.buyOrig)}</span></div>
         <div class="card-row"><span class="cr-label">Interest (${D}d)</span><span class="cr-value">${fmt(p.buyInt)}</span></div>
-        <div class="card-row sub-header"><span class="cr-label">▸ Sell-Side (IE)</span></div>
-        <div class="card-row"><span class="cr-label">IE Loan</span><span class="cr-value">${fmt(p.sellLoan)}</span></div>
+        <div class="card-row sub-header"><span class="cr-label">▸ Sell-Side (IE${p.hasPayoff?' · Payoff':''})</span></div>
+        <div class="card-row"><span class="cr-label">IE Loan</span><span class="cr-value">${fmt(p.sellLoan)}</span></div>${p.hasPayoff&&p.payoffAmt>0?`
+        <div class="card-row"><span class="cr-label" style="color:var(--amber)">  └ 1st Lien Payoff</span><span class="cr-value" style="color:var(--amber)">${fmt(p.payoffAmt)}</span></div>
+        <div class="card-row"><span class="cr-label" style="color:var(--green)">  └ Net New Funds</span><span class="cr-value" style="color:var(--green)">${fmt(p.netNewAmt)}</span></div>`:''}
         <div class="card-row"><span class="cr-label">Orig (2.0%)</span><span class="cr-value">${fmt(p.sellOrig)}</span></div>
         <div class="card-row"><span class="cr-label">Interest (${D}d)</span><span class="cr-value">${fmt(p.sellInt)}</span></div>
         <div class="card-row"><span class="cr-label">GBC (bundled)</span><span class="cr-value">${fmt(p.gbcFee)}</span></div>
@@ -477,8 +543,13 @@ function runAnalysis(){
         <div class="card-row divider"><span class="cr-label">Cash Required</span><span class="cr-value" style="font-weight:700">${fmt(p.cashReq)}</span></div>
         <div class="card-row"><span class="cr-label">Liquidity</span><span class="cr-value ${p.liqPass?'pass':'fail'}">${p.liqPass?'✓ Pass':'✗ '+fmt(p.cashReq-L)+' short'}</span></div>`;
     } else {
-      rows=`<div class="card-row"><span class="cr-label">Loan Amount</span><span class="cr-value">${fmt(p.loanAmt)}</span></div>
-        <div class="card-row"><span class="cr-label">Lien</span><span class="cr-value">${p.lienPos}</span></div>
+      rows=`<div class="card-row"><span class="cr-label">Loan Amount</span><span class="cr-value">${fmt(p.loanAmt)}</span></div>`;
+      // Show payoff breakdown if applicable
+      if(p.hasPayoff&&p.payoffAmt>0){
+        rows+=`<div class="card-row"><span class="cr-label" style="color:var(--amber)">  └ 1st Lien Payoff</span><span class="cr-value" style="color:var(--amber)">${fmt(p.payoffAmt)}</span></div>
+        <div class="card-row"><span class="cr-label" style="color:var(--green)">  └ Net New Funds</span><span class="cr-value" style="color:var(--green)">${fmt(p.netNewAmt)}</span></div>`;
+      }
+      rows+=`<div class="card-row"><span class="cr-label">Lien</span><span class="cr-value">${p.lienPos}</span></div>
         <div class="card-row"><span class="cr-label">GBC Fee</span><span class="cr-value">${p.gbcFee>0?fmt(p.gbcFee):'—'}</span></div>
         <div class="card-row"><span class="cr-label">Orig (${p.origRate})</span><span class="cr-value">${fmt(p.origFee)}</span></div>
         <div class="card-row"><span class="cr-label">Interest (${D}d)</span><span class="cr-value">${fmt(p.interest)}</span></div>
@@ -486,8 +557,21 @@ function runAnalysis(){
         <div class="card-row divider"><span class="cr-label">Cash Required</span><span class="cr-value" style="font-weight:700">${fmt(p.cashReq)}</span></div>
         <div class="card-row"><span class="cr-label">Liquidity</span><span class="cr-value ${p.eligible?(p.liqPass?'pass':'fail'):''}">${p.eligible?(p.liqPass?'✓ Pass':'✗ '+fmt(p.cashReq-L)+' short'):'—'}</span></div>`;
     }
-    return `<div class="program-card${p===rec?' recommended':''}${!p.eligible?' not-eligible':''}">
-      ${p===rec?'<div class="rec-ribbon">★ BEST FIT</div>':''}
+    const isActive=p===rec;
+    const cardClass=isActive?(isUserPick?' user-selected':' recommended'):'';
+    const ribbonLabel=isActive?(isUserPick?'✓ SELECTED':'★ BEST FIT'):'';
+    const ribbon=isActive?`<div class="rec-ribbon">${ribbonLabel}</div>`:'';
+    // Select button for eligible cards
+    let selectBtn='';
+    if(p.eligible&&p.liqPass){
+      if(isActive){
+        selectBtn=`<button class="card-select-btn active">✓ Active Selection</button>`;
+      } else {
+        selectBtn=`<button class="card-select-btn" onclick="event.stopPropagation();selectProgram('${p.id}')">Use This Program</button>`;
+      }
+    }
+    return `<div class="program-card${cardClass}${!p.eligible?' not-eligible':''}">
+      ${ribbon}
       <div class="card-header"><div class="card-icon ${p.icon}" style="font-size:.52rem">${p.letter}</div>
         <div>${tagH}<h4>${p.short} ${ltvB}</h4>
           <div class="card-sub">${p.eligible?p.speed+' · Complexity '+p.complexity+'/5':'<span class="tag-not">✗ '+p.reason+'</span>'}</div>
@@ -496,7 +580,8 @@ function runAnalysis(){
       <div class="card-best"><div class="card-best-inner">
         <div class="best-label">Best For</div><div class="best-text">${p.bestFor}</div>
         <div class="risk-text">⚠ ${p.risk}</div>
-      </div></div></div>`;
+      </div></div>
+      ${selectBtn}</div>`;
   }).join('');
 
   // TABLE
