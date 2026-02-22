@@ -62,8 +62,11 @@ header p{margin-top:.5rem;color:var(--text-muted);font-size:.92rem;max-width:600
 .sel-chip .chip-tag{font-size:.48rem;text-transform:uppercase;letter-spacing:.05em;padding:.06rem .25rem;border-radius:3px;font-weight:600;margin-left:.1rem}
 .sel-chip .chip-tag.combo{background:rgba(79,70,229,.08);color:var(--indigo)}.sel-chip .chip-tag.single{background:var(--bg-section);color:var(--text-light)}
 
-/* LTV inline divider + compact toggle */
-.ltv-divider{width:1px;height:26px;background:var(--border);margin:0 .3rem;flex-shrink:0}
+/* LTV inline group: divider + label + toggle as one unit */
+#ltv-inline-wrap{align-items:center;gap:0;flex-shrink:0}
+.ltv-divider{width:1px;height:26px;background:var(--border);margin:0 .4rem;flex-shrink:0}
+.ltv-group{display:inline-flex;align-items:center;gap:.35rem;flex-shrink:0}
+.ltv-label{font-size:.52rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-light);font-weight:600;white-space:nowrap}
 .ltv-inline{display:inline-flex;align-items:center;gap:0;border-radius:99px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-sm);flex-shrink:0}
 .ltv-inline .ltv-opt{padding:.35rem .7rem;font-size:.7rem;font-weight:600;cursor:pointer;transition:all .25s;color:var(--text-muted);background:var(--bg-card);user-select:none;display:flex;align-items:center;gap:.3rem;white-space:nowrap;line-height:1.2}
 .ltv-inline .ltv-opt:first-child{border-right:1px solid var(--border)}
@@ -71,7 +74,6 @@ header p{margin-top:.5rem;color:var(--text-muted);font-size:.92rem;max-width:600
 .ltv-inline .ltv-opt .ltv-pct{font-family:var(--font-display);font-weight:500;font-size:.82rem}
 .ltv-inline .ltv-opt .ltv-sub{font-size:.5rem;color:var(--text-light);font-weight:400}
 .ltv-inline .ltv-opt.active .ltv-sub{color:var(--blue)}
-.ltv-label{font-size:.52rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-light);font-weight:600;margin-right:.15rem;white-space:nowrap}
 
 .selector-actions{display:flex;justify-content:center;gap:.6rem;margin-top:.55rem;flex-wrap:wrap}
 .sel-btn{padding:.3rem .75rem;border-radius:6px;border:1px solid var(--border);background:var(--bg-card);color:var(--text-muted);font-size:.67rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:var(--font-body)}
@@ -80,23 +82,8 @@ header p{margin-top:.5rem;color:var(--text-muted);font-size:.92rem;max-width:600
 .sel-btn.primary:hover{background:#1555c0;transform:translateY(-1px);box-shadow:var(--shadow-md)}
 .sel-count{text-align:center;margin-top:.4rem;font-size:.65rem;color:var(--text-light)}
 
-/* ── LTV Recommendation Banner ── */
-.ltv-rec-banner{max-width:940px;margin:0 auto 1.25rem;padding:.7rem 1rem;border-radius:var(--radius-sm);display:none;animation:fadeUp .4s ease-out both;font-size:.78rem;line-height:1.5}
-.ltv-rec-banner.show{display:flex;align-items:flex-start;gap:.6rem}
-.ltv-rec-banner .ltv-rec-icon{flex-shrink:0;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:1px}
-.ltv-rec-banner.recommend-10{background:rgba(26,138,92,.06);border:1px solid rgba(26,138,92,.2)}
-.ltv-rec-banner.recommend-10 .ltv-rec-icon{background:var(--green-light);color:var(--green)}
-.ltv-rec-banner.recommend-5{background:var(--blue-light);border:1px solid rgba(24,99,220,.2)}
-.ltv-rec-banner.recommend-5 .ltv-rec-icon{background:var(--blue-light);color:var(--blue)}
-.ltv-rec-banner.recommend-only5{background:var(--amber-light);border:1px solid rgba(196,112,10,.2)}
-.ltv-rec-banner.recommend-only5 .ltv-rec-icon{background:var(--amber-light);color:var(--amber)}
-.ltv-rec-banner .ltv-rec-body{flex:1}
-.ltv-rec-banner .ltv-rec-headline{font-weight:700;color:var(--text-primary);font-size:.8rem;margin-bottom:.1rem}
-.ltv-rec-banner .ltv-rec-detail{color:var(--text-muted);font-size:.72rem}
-.ltv-rec-banner .ltv-rec-detail strong{color:var(--text-primary)}
-.ltv-rec-banner .ltv-rec-action{flex-shrink:0;align-self:center}
-.ltv-rec-banner .ltv-rec-action button{padding:.3rem .8rem;border-radius:6px;border:1px solid var(--border);background:var(--bg-card);color:var(--text-primary);font-size:.65rem;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all .2s}
-.ltv-rec-banner .ltv-rec-action button:hover{border-color:var(--blue);color:var(--blue)}
+/* ── Inline LTV note inside hero ── */
+.ltv-note{margin-top:.75rem;padding-top:.6rem;border-top:1px solid var(--border-light);font-size:.72rem;color:var(--text-muted);line-height:1.55}
 
 /* Hero */
 #rec-hero{margin:0 auto 0;max-width:940px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius) var(--radius) 0 0;padding:1.75rem 2rem 1.4rem;position:relative;overflow:hidden;animation:fadeUp .5s ease-out both;box-shadow:var(--shadow-md)}
@@ -241,15 +228,17 @@ footer{text-align:center;padding:1rem 0;color:var(--text-light);font-size:.6rem;
       <!-- LTV toggle inline, shown/hidden by JS -->
       <span id="ltv-inline-wrap" style="display:none">
         <span class="ltv-divider"></span>
-        <span class="ltv-label">Buy LTV</span>
-        <span class="ltv-inline" id="ltv-toggle">
-          <span class="ltv-opt" data-ltv="90" onclick="setLTV(90)">
-            <span class="ltv-pct">90%</span>
-            <span class="ltv-sub">10% dn</span>
-          </span>
-          <span class="ltv-opt active" data-ltv="95" onclick="setLTV(95)">
-            <span class="ltv-pct">95%</span>
-            <span class="ltv-sub">5% dn</span>
+        <span class="ltv-group">
+          <span class="ltv-label">Buy LTV</span>
+          <span class="ltv-inline" id="ltv-toggle">
+            <span class="ltv-opt" data-ltv="90" onclick="setLTV(90)">
+              <span class="ltv-pct">90%</span>
+              <span class="ltv-sub">10% dn</span>
+            </span>
+            <span class="ltv-opt active" data-ltv="95" onclick="setLTV(95)">
+              <span class="ltv-pct">95%</span>
+              <span class="ltv-sub">5% dn</span>
+            </span>
           </span>
         </span>
       </span>
@@ -263,15 +252,6 @@ footer{text-align:center;padding:1rem 0;color:var(--text-light);font-size:.6rem;
     <div class="sel-count" id="sel-count"></div>
   </section>
 
-  <!-- LTV RECOMMENDATION BANNER (auto-computed) -->
-  <div class="ltv-rec-banner" id="ltv-rec-banner">
-    <div class="ltv-rec-icon" id="ltv-rec-icon">&#x2713;</div>
-    <div class="ltv-rec-body">
-      <div class="ltv-rec-headline" id="ltv-rec-headline"></div>
-      <div class="ltv-rec-detail" id="ltv-rec-detail"></div>
-    </div>
-    <div class="ltv-rec-action" id="ltv-rec-action"></div>
-  </div>
 
   <!-- INPUTS -->
   <section class="inputs-section">
@@ -331,7 +311,7 @@ function renderSelector(){
   $('selector-chips').innerHTML=PROGRAM_DEFS.map(p=>`<span class="sel-chip${selectedPrograms.has(p.id)?' active':''}" onclick="toggleProgram('${p.id}')"><span class="chip-dot" style="background:${p.dotColor}"></span>${p.label}<span class="chip-tag ${p.tag}">${p.tag==='combo'?'Combo':'Single'}</span></span>`).join('');
   $('sel-count').textContent=`${selectedPrograms.size} of ${PROGRAM_DEFS.length} selected`;
   const hasBBYS=['bbys','bie1','bie2'].some(id=>selectedPrograms.has(id));
-  $('ltv-inline-wrap').style.display=hasBBYS?'contents':'none';
+  $('ltv-inline-wrap').style.display=hasBBYS?'inline-flex':'none';
 }
 
 function setLTV(v){buyLTV=v;document.querySelectorAll('.ltv-opt').forEach(el=>{el.classList.toggle('active',parseInt(el.dataset.ltv)===v)});runAnalysis()}
@@ -340,7 +320,7 @@ function selectAll(){selectedPrograms=new Set(PROGRAM_DEFS.map(p=>p.id));renderS
 function selectNone(){selectedPrograms=new Set();renderSelector();hideResults()}
 function selectSingles(){selectedPrograms=new Set(PROGRAM_DEFS.filter(p=>p.tag==='single').map(p=>p.id));renderSelector();runAnalysis()}
 function selectCombos(){selectedPrograms=new Set(PROGRAM_DEFS.filter(p=>p.tag==='combo').map(p=>p.id));renderSelector();runAnalysis()}
-function hideResults(){['rec-hero','runner-up','programs-section','comparison-section','how-section','computed-bar'].forEach(id=>{$(id).style.display='none'});$('ltv-rec-banner').className='ltv-rec-banner';$('ltv-rec-banner').classList.remove('show')}
+function hideResults(){['rec-hero','runner-up','programs-section','comparison-section','how-section','computed-bar'].forEach(id=>{$(id).style.display='none'})}
 
 /* ── Cost calculator for a given LTV% (used for comparison) ── */
 function calcBBYSCost(P,G,D,ltvPct){
@@ -369,70 +349,15 @@ function runAnalysis(){
   const bOrigLabel=bLTV>.9?'1.5%':'1.0%';
   const bDownLabel=bLTV>.9?'5%':'10%';
 
-  /* ── LTV AUTO-RECOMMENDATION ── */
+  /* ── LTV context note (computed for hero section) ── */
   const hasBBYS=['bbys','bie1','bie2'].some(id=>selectedPrograms.has(id));
-  const banner=$('ltv-rec-banner');
-  banner.className='ltv-rec-banner'; // reset
-
-  if(hasBBYS && P>0){
+  let ltvNoteHTML='';
+  if(hasBBYS && P>0 && buyLTV===95){
     const c90=calcBBYSCost(P,G,D,90);
-    const c95=calcBBYSCost(P,G,D,95);
-    const availFunds=net+L; // departing proceeds + liquidity
-    const can10=availFunds>=c90.cashReq;
-    const can5=availFunds>=c95.cashReq;
-    const costSaving=c95.totalCost-c90.totalCost; // positive = 90% saves money
-    const cashRetained90=L-Math.max(c90.down-Math.max(net,0),0);
-    const cashRetained95=L-Math.max(c95.down-Math.max(net,0),0);
-
-    if(can10){
-      // Can afford 10% down — compare costs
-      if(costSaving>200){
-        // 90% LTV saves meaningful money
-        banner.classList.add('show','recommend-10');
-        $('ltv-rec-icon').textContent='✓';
-        $('ltv-rec-headline').textContent='10% down payment is the better option.';
-        $('ltv-rec-detail').innerHTML=`Saves <strong>${fmt(costSaving)}</strong> in total program cost (1.0% vs 1.5% origination on a smaller bridge loan). You retain <strong>${fmt(cashRetained90)}</strong> in liquidity after closing — sufficient for reserves.`;
-        if(buyLTV!==90){
-          $('ltv-rec-action').innerHTML=`<button onclick="setLTV(90)">Switch to 90% LTV</button>`;
-        } else {
-          $('ltv-rec-action').innerHTML=`<span style="font-size:.6rem;color:var(--green);font-weight:600">&#10003; Active</span>`;
-        }
-      } else if(costSaving<-200){
-        // Edge case: 95% somehow cheaper (shouldn't really happen but be safe)
-        banner.classList.add('show','recommend-5');
-        $('ltv-rec-icon').textContent='✓';
-        $('ltv-rec-headline').textContent='5% down payment is the better option.';
-        $('ltv-rec-detail').innerHTML=`Preserves <strong>${fmt(cashRetained95-cashRetained90)}</strong> more liquidity while total cost difference is minimal. Keeps cash available for repairs, rate locks, or reserves.`;
-        if(buyLTV!==95){
-          $('ltv-rec-action').innerHTML=`<button onclick="setLTV(95)">Switch to 95% LTV</button>`;
-        } else {
-          $('ltv-rec-action').innerHTML=`<span style="font-size:.6rem;color:var(--green);font-weight:600">&#10003; Active</span>`;
-        }
-      } else {
-        // Marginal difference — still recommend 10% for lower rate
-        banner.classList.add('show','recommend-10');
-        $('ltv-rec-icon').textContent='≈';
-        $('ltv-rec-headline').textContent='10% down is slightly better — lower origination rate.';
-        $('ltv-rec-detail').innerHTML=`Cost difference is small (<strong>${fmt(Math.abs(costSaving))}</strong>), but 10% down gets 1.0% origination vs 1.5%. Either option works with your available funds.`;
-        if(buyLTV!==90){
-          $('ltv-rec-action').innerHTML=`<button onclick="setLTV(90)">Switch to 90% LTV</button>`;
-        } else {
-          $('ltv-rec-action').innerHTML=`<span style="font-size:.6rem;color:var(--green);font-weight:600">&#10003; Active</span>`;
-        }
-      }
-    } else if(can5 && !can10){
-      // Can only afford 5% down
-      banner.classList.add('show','recommend-only5');
-      $('ltv-rec-icon').textContent='!';
-      $('ltv-rec-headline').textContent='5% down is your only viable option.';
-      $('ltv-rec-detail').innerHTML=`Available funds (<strong>${fmt(availFunds)}</strong>) don't cover 10% down (<strong>${fmt(c90.cashReq)}</strong>). 95% LTV at 1.5% origination keeps you qualified.`;
-      if(buyLTV!==95){
-        $('ltv-rec-action').innerHTML=`<button onclick="setLTV(95)">Switch to 95% LTV</button>`;
-      } else {
-        $('ltv-rec-action').innerHTML=`<span style="font-size:.6rem;color:var(--green);font-weight:600">&#10003; Active</span>`;
-      }
+    const availFunds=net+L;
+    if(availFunds>=c90.cashReq){
+      ltvNoteHTML=`<div class="ltv-note">Currently showing 5% down (95% LTV). Departing residence proceeds plus liquid assets of ${fmt(availFunds)} appear sufficient to support a 10% down payment option as well.</div>`;
     }
-    // If neither affordable, banner stays hidden
   }
 
   const cb=$('computed-bar');cb.style.display='';
@@ -498,6 +423,7 @@ function runAnalysis(){
   }
 
   // HERO
+  const oldNote=document.querySelector('#rec-hero .ltv-note');if(oldNote)oldNote.remove();
   const h=$('rec-hero'),rEl=$('runner-up');h.style.display='';
   if(rec){
     h.classList.remove('no-runner');$('rec-name').textContent=rec.name;
@@ -517,6 +443,10 @@ function runAnalysis(){
       <div class="rec-stat"><div class="label">Origination</div><div class="value">${fmt(rec.origFee)}</div></div>
       <div class="rec-stat"><div class="label">Interest (${D}d)</div><div class="value warn">${fmt(rec.interest)}</div></div>
       <div class="rec-stat"><div class="label">Buy LTV</div><div class="value">${rec.buyLtvLabel}</div></div>`;
+    // Append subtle LTV context note if applicable
+    if(ltvNoteHTML && ['bbys','bie1','bie2'].includes(rec.id)){
+      $('rec-stats').insertAdjacentHTML('afterend',ltvNoteHTML);
+    }
     if(ru){rEl.style.display='';h.classList.remove('no-runner');const cd=ru.totalCost-rec.totalCost;$('ru-text').innerHTML=`<strong>${ru.name}</strong> — cost ${fmt(ru.totalCost)} (${cd>0?'+':''}${fmt(cd)}), cash ${fmt(ru.cashReq)}.`}
     else{rEl.style.display='none';h.classList.add('no-runner')}
   } else {
