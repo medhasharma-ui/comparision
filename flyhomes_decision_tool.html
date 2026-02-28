@@ -80,6 +80,9 @@ header p{margin-top:.4rem;color:var(--text-light);font-size:.82rem;max-width:600
 .sel-chip.active .chip-dot{opacity:1}
 .sel-chip .chip-tag{font-size:.48rem;text-transform:uppercase;letter-spacing:.05em;padding:.06rem .25rem;border-radius:3px;font-weight:600;margin-left:.1rem}
 .sel-chip .chip-tag.combo{background:rgba(99,102,241,.08);color:var(--indigo)}.sel-chip .chip-tag.single{background:var(--bg-section);color:var(--text-light)}
+.sel-chip.disabled{opacity:.35;cursor:not-allowed;pointer-events:none;border-color:var(--border-light);background:var(--bg-section)}
+.sel-chip.disabled .chip-dot{opacity:.25}
+.cc-blocked-note{display:inline-flex;align-items:center;gap:.3rem;font-size:.62rem;color:var(--red);font-weight:500;margin-left:.3rem}
 
 /* LTV inline group: divider + label + toggle as one unit */
 #ltv-inline-wrap{align-items:center;gap:0;flex-shrink:0}
@@ -108,6 +111,12 @@ header p{margin-top:.4rem;color:var(--text-light);font-size:.82rem;max-width:600
 .payoff-note .payoff-label{font-size:.55rem;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);font-weight:700;margin-bottom:.15rem}
 .payoff-breakdown{display:flex;gap:1rem;margin-top:.35rem;flex-wrap:wrap}
 .payoff-breakdown .pb-item{font-size:.65rem;color:var(--text-muted)}
+.approval-note{margin-top:.75rem;padding:.55rem .75rem;border-radius:6px;background:var(--red-light);border:1px solid rgba(220,38,38,.18);font-size:.72rem;color:var(--text-secondary);line-height:1.55}
+.approval-note .approval-label{font-size:.55rem;text-transform:uppercase;letter-spacing:.06em;color:var(--red);font-weight:700;margin-bottom:.15rem}
+.approval-note strong{color:var(--text-primary)}
+.approval-note a{color:var(--blue);text-decoration:none;font-weight:600}
+.approval-note a:hover{text-decoration:underline}
+.card-approval{margin-top:.5rem;padding:.4rem .6rem;border-radius:6px;background:var(--red-light);border:1px solid rgba(220,38,38,.15);font-size:.6rem;color:var(--red);font-weight:600;line-height:1.5;text-align:center}
 .payoff-breakdown .pb-item strong{font-family:var(--font-display);font-weight:500;color:var(--text-primary)}
 
 /* Hero */
@@ -385,6 +394,10 @@ footer{text-align:center;padding:1rem 0;color:var(--text-light);font-size:.6rem;
       <div class="input-card"><label>GBC Value (Guaranteed Backup Contract)<svg class="edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></label><div class="input-wrap"><span class="dollar">$</span><input type="text" id="in_gbc" value="450,000" inputmode="numeric"></div><div class="hint">Typically ~75% of fair market value</div></div>
       <div class="input-card"><label>Estimated Hold Period (Days)<svg class="edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></label><div class="input-wrap"><input type="text" id="in_days" value="60" inputmode="numeric" style="color:var(--amber)"></div><div class="hint">Days until departing home sells (30–120 typical)</div></div>
     </div>
+    <div class="input-row-2" style="margin-top:.65rem">
+      <div class="input-card"><label>Buy Side Property State<svg class="edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></label><div class="input-wrap"><select id="in_buy_state" style="background:none;border:none;outline:none;color:var(--text-primary);font-family:var(--font-display);font-weight:500;font-size:1.05rem;width:100%;cursor:pointer"><option value="">Select state…</option></select></div><div class="hint">State where you are purchasing</div></div>
+      <div class="input-card"><label>Sell Side Property State<svg class="edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></label><div class="input-wrap"><select id="in_sell_state" style="background:none;border:none;outline:none;color:var(--text-primary);font-family:var(--font-display);font-weight:500;font-size:1.05rem;width:100%;cursor:pointer"><option value="">Select state…</option></select></div><div class="hint">State where you are selling</div></div>
+    </div>
     <button class="sel-btn primary" onclick="userOverride=null;runAnalysis()" style="margin-top:1rem;display:flex;align-items:center;justify-content:center;gap:.4rem;width:100%;max-width:260px;margin-inline:auto">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Analyze Programs
     </button>
@@ -415,7 +428,14 @@ document.querySelectorAll('.input-card input').forEach(inp=>{
   inp.addEventListener('keydown',e=>{if(e.key==='Enter'){userOverride=null;runAnalysis()}});
   inp.addEventListener('change',()=>{userOverride=null});
 });
-function selectProgram(id){userOverride=id;runAnalysis()}
+// Populate state dropdowns
+(function(){
+  const states=['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY','DC'];
+  const names=['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming','District of Columbia'];
+  ['in_buy_state','in_sell_state'].forEach(id=>{const sel=$(id);states.forEach((s,i)=>{const o=document.createElement('option');o.value=s;o.textContent=names[i]+' ('+s+')';sel.appendChild(o)});
+  sel.addEventListener('change',()=>{const blocked=isCCBlocked();if(blocked){selectedPrograms.delete('cc');if(userOverride==='cc')userOverride=null}else{selectedPrograms.add('cc')}renderSelector();runAnalysis()})});
+})();
+function selectProgram(id){if(id==='cc'&&isCCBlocked())return;userOverride=id;runAnalysis()}
 function gbcFee(g,bundled){const t=[[5e5,2500,0],[75e4,3500,1000],[1e6,5000,2500],[15e5,7500,2500],[2e6,10000,2500]];for(const[c,s,cr]of t)if(g<=c)return bundled?s-cr:s;return bundled?10000:10000}
 
 const PROGRAM_DEFS=[
@@ -430,18 +450,35 @@ let selectedPrograms=new Set(PROGRAM_DEFS.map(p=>p.id));
 let buyLTV=95;
 let userOverride=null; // program id manually chosen by user — null = system decides
 
+const CC_BLOCKED_STATES=new Set(['DC','IL','LA','PA','TX']);
+function isCCBlocked(){
+  const bs=$('in_buy_state').value, ss=$('in_sell_state').value;
+  if(bs && ss && bs!==ss) return 'Different buy/sell states';
+  if(bs && CC_BLOCKED_STATES.has(bs)) return bs+' not eligible';
+  if(ss && CC_BLOCKED_STATES.has(ss)) return ss+' not eligible';
+  return '';
+}
+
 function renderSelector(){
-  $('selector-chips').innerHTML=PROGRAM_DEFS.map(p=>`<span class="sel-chip${selectedPrograms.has(p.id)?' active':''}" onclick="toggleProgram('${p.id}')"><span class="chip-dot" style="background:${p.dotColor}"></span>${p.label}<span class="chip-tag ${p.tag}">${p.tag==='combo'?'Combo':'Single'}</span></span>`).join('');
+  const ccBlock=isCCBlocked();
+  $('selector-chips').innerHTML=PROGRAM_DEFS.map(p=>{
+    const blocked=(p.id==='cc'&&ccBlock);
+    if(blocked){selectedPrograms.delete('cc')}
+    const cls='sel-chip'+(selectedPrograms.has(p.id)?' active':'')+(blocked?' disabled':'');
+    const onclick=blocked?'':` onclick="toggleProgram('${p.id}')"`;
+    const note=blocked?`<span class="cc-blocked-note">${ccBlock}</span>`:'';
+    return `<span class="${cls}"${onclick}><span class="chip-dot" style="background:${p.dotColor}"></span>${p.label}<span class="chip-tag ${p.tag}">${p.tag==='combo'?'Combo':'Single'}</span>${note}</span>`;
+  }).join('');
   $('sel-count').textContent=`${selectedPrograms.size} of ${PROGRAM_DEFS.length} selected`;
   const hasBBYS=['bbys','bie1','bie2'].some(id=>selectedPrograms.has(id));
   $('ltv-inline-wrap').style.display=hasBBYS?'inline-flex':'none';
 }
 
 function setLTV(v){buyLTV=v;document.querySelectorAll('.ltv-opt').forEach(el=>{el.classList.toggle('active',parseInt(el.dataset.ltv)===v)});runAnalysis()}
-function toggleProgram(id){if(selectedPrograms.has(id))selectedPrograms.delete(id);else selectedPrograms.add(id);renderSelector();runAnalysis()}
-function selectAll(){selectedPrograms=new Set(PROGRAM_DEFS.map(p=>p.id));renderSelector();runAnalysis()}
+function toggleProgram(id){if(id==='cc'&&isCCBlocked())return;if(selectedPrograms.has(id))selectedPrograms.delete(id);else selectedPrograms.add(id);renderSelector();runAnalysis()}
+function selectAll(){const ccBlock=isCCBlocked();selectedPrograms=new Set(PROGRAM_DEFS.filter(p=>!(p.id==='cc'&&ccBlock)).map(p=>p.id));renderSelector();runAnalysis()}
 function selectNone(){selectedPrograms=new Set();renderSelector();hideResults()}
-function selectSingles(){selectedPrograms=new Set(PROGRAM_DEFS.filter(p=>p.tag==='single').map(p=>p.id));renderSelector();runAnalysis()}
+function selectSingles(){const ccBlock=isCCBlocked();selectedPrograms=new Set(PROGRAM_DEFS.filter(p=>p.tag==='single'&&!(p.id==='cc'&&ccBlock)).map(p=>p.id));renderSelector();runAnalysis()}
 function selectCombos(){selectedPrograms=new Set(PROGRAM_DEFS.filter(p=>p.tag==='combo').map(p=>p.id));renderSelector();runAnalysis()}
 function hideResults(){['rec-hero','runner-up','programs-section','comparison-section','how-section','computed-bar','pdf-btn-area'].forEach(id=>{$(id).style.display='none'})}
 
@@ -493,51 +530,60 @@ function runAnalysis(){
   const ie1Total=Math.min(Math.max(ie1TotalRaw,0),2e6);
   const ie1Payoff=M; // existing 1st lien to be paid off at closing
   const ie1NetNew=Math.max(ie1Total-ie1Payoff,0); // incremental funds beyond payoff
-  const ok=ie1Total>=75000&&ie1Total<=2e6;
-  const why=ie1Total<75000?`IE loan ${fmt(ie1Total)} < $75K min`:ie1Total>2e6?'> $2M max':'';
+  const needsAppr1=ie1Total>0&&ie1Total<75000;
+  const ok=(ie1Total>0&&ie1Total<=2e6);
+  const why=ie1Total<=0?'No equity available':ie1Total>2e6?'> $2M max':'';
   const hasPayoff=M>0;
   const gf=gbcFee(G,false),orig=ie1Total*.02,int=ie1Total*.0999*(D/365);const cost=gf+orig+int,cash=gf+Math.max(dn5-ie1NetNew,0);
-  allPrograms.push({id:'ie1',name:'Instant Equity — 1st Lien'+(hasPayoff?' (w/ Payoff)':''),short:'IE 1st Lien',icon:'ie1',letter:'IE1',color:'var(--amber)',tag:'single',eligible:ok,reason:why,loanAmt:ie1Total,origFee:orig,origRate:'2.0%',interest:int,gbcFee:gf,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'1st lien on departing',bestFor:hasPayoff?'Pays off existing 1st lien at closing. Full 90% CLTV at 2.0% origination. Lower rate than 2nd lien.':'Departing home is mortgage-free. Lowest IE origination (2.0%) to unlock equity.',risk:hasPayoff?'Includes payoff of existing mortgage. 9.99% interest accrues on full loan amount. GBC fee upfront.':'9.99% interest accrues. Costs deducted from proceeds. GBC fee upfront.',speed:'~14d',complexity:hasPayoff?3:2,proceedsUse:'IE repaid from sale. Surplus is yours.',maxLoanRule:'90% CLTV of GBC; min $75K; max $2M',term:'12-mo balloon',buyLtvLabel:'N/A',buyLoan:0,buyOrig:0,sellLoan:ie1Total,sellOrig:orig,hasPayoff,payoffAmt:ie1Payoff,netNewAmt:ie1NetNew})}
+  allPrograms.push({id:'ie1',needsApproval:needsAppr1,name:'Instant Equity — 1st Lien'+(hasPayoff?' (w/ Payoff)':''),short:'IE 1st Lien',icon:'ie1',letter:'IE1',color:'var(--amber)',tag:'single',eligible:ok,reason:why,loanAmt:ie1Total,origFee:orig,origRate:'2.0%',interest:int,gbcFee:gf,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'1st lien on departing',bestFor:hasPayoff?'Pays off existing 1st lien at closing. Full 90% CLTV at 2.0% origination. Lower rate than 2nd lien.':'Departing home is mortgage-free. Lowest IE origination (2.0%) to unlock equity.',risk:hasPayoff?'Includes payoff of existing mortgage. 9.99% interest accrues on full loan amount. GBC fee upfront.':'9.99% interest accrues. Costs deducted from proceeds. GBC fee upfront.',speed:'~14d',complexity:hasPayoff?3:2,proceedsUse:'IE repaid from sale. Surplus is yours.',maxLoanRule:'90% CLTV of GBC; min $75K; max $2M',term:'12-mo balloon',buyLtvLabel:'N/A',buyLoan:0,buyOrig:0,sellLoan:ie1Total,sellOrig:orig,hasPayoff,payoffAmt:ie1Payoff,netNewAmt:ie1NetNew})}
 
   // 2. IE 2nd
-  {const raw=Math.max(g90-M,0),loan=Math.min(raw,2e6);const ok=M>0&&raw>=75000&&raw<=2e6;
-  const why=M===0?'No mortgage → IE 1st Lien':raw<75000?`IE loan ${fmt(raw)} < $75K min`:raw>2e6?'> $2M max':'';
+  {const raw=Math.max(g90-M,0),loan=Math.min(raw,2e6);
+  const needsAppr2=M>0&&raw>0&&raw<75000;
+  const ok=M>0&&raw>0&&raw<=2e6;
+  const why=M===0?'No mortgage → IE 1st Lien':raw<=0?'No equity above mortgage':raw>2e6?'> $2M max':'';
   const gf=gbcFee(G,false),orig=loan*.025,int=loan*.0999*(D/365);const cost=gf+orig+int,cash=gf+Math.max(dn5-loan,0);
-  allPrograms.push({id:'ie2',name:'Instant Equity — 2nd Lien',short:'IE 2nd Lien',icon:'ie2',letter:'IE2',color:'#c4960a',tag:'single',eligible:ok,reason:why,loanAmt:loan,origFee:orig,origRate:'2.5%',interest:int,gbcFee:gf,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'2nd lien on departing',bestFor:'Has mortgage. Unlocks equity above mortgage for down payment.',risk:'2.5% origination (2nd lien) + 9.99% interest. GBC fee upfront.',speed:'~14d',complexity:2,proceedsUse:'IE + mortgage repaid from sale. Surplus is yours.',maxLoanRule:'90% CLTV of GBC − mortgage; min $75K; max $2M',term:'12-mo balloon',buyLtvLabel:'N/A',buyLoan:0,buyOrig:0,sellLoan:loan,sellOrig:orig})}
+  allPrograms.push({id:'ie2',needsApproval:needsAppr2,name:'Instant Equity — 2nd Lien',short:'IE 2nd Lien',icon:'ie2',letter:'IE2',color:'#c4960a',tag:'single',eligible:ok,reason:why,loanAmt:loan,origFee:orig,origRate:'2.5%',interest:int,gbcFee:gf,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'2nd lien on departing',bestFor:'Has mortgage. Unlocks equity above mortgage for down payment.',risk:'2.5% origination (2nd lien) + 9.99% interest. GBC fee upfront.',speed:'~14d',complexity:2,proceedsUse:'IE + mortgage repaid from sale. Surplus is yours.',maxLoanRule:'90% CLTV of GBC − mortgage; min $75K; max $2M',term:'12-mo balloon',buyLtvLabel:'N/A',buyLoan:0,buyOrig:0,sellLoan:loan,sellOrig:orig})}
 
   // 3. BBYS Cash Offer
-  {const loan=bLoan;const ok=loan>=2e5&&loan<=25e5;
-  const why=loan<2e5?`Bridge ${fmt(loan)} < $200K min`:loan>25e5?'> $2.5M max':'';
+  {const loan=bLoan;
+  const needsApprBBYS=loan>0&&loan<2e5;
+  const ok=loan>0&&loan<=25e5;
+  const why=loan<=0?'No loan amount':loan>25e5?'> $2.5M max':'';
   const orig=loan*bOrigRate,int=loan*.0999*(D/365);const gf=gbcFee(G,true);const cost=gf+orig+int,cash=gf+bDown;
-  allPrograms.push({id:'bbys',name:`BBYS Cash Offer (${buyLTV}% LTV)`,short:'BBYS Cash Offer',icon:'bbys',letter:'FCO',color:'var(--blue)',tag:'single',eligible:ok,reason:why,loanAmt:loan,origFee:orig,origRate:bOrigLabel,interest:int,gbcFee:gf,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'1st lien on new home',bestFor:`Cash-like offer at ${buyLTV}% LTV. ${bDownLabel} down. Win in competition. Close ~10 days.`,risk:`9.99% interest on full bridge. ${buyLTV===95?'Higher 1.5% origination at 95% LTV.':'Lower origination but need 10% down.'}`,speed:'~10d',complexity:3,proceedsUse:'Bridge refinanced into long-term mortgage. Departing sale proceeds = surplus.',maxLoanRule:`${buyLTV}% LTV on new home; min $200K; max $2.5M`,term:'12-mo balloon',buyLtvLabel:buyLTV+'%',buyLoan:loan,buyOrig:orig,sellLoan:0,sellOrig:0})}
+  allPrograms.push({id:'bbys',needsApproval:needsApprBBYS,name:`BBYS Cash Offer (${buyLTV}% LTV)`,short:'BBYS Cash Offer',icon:'bbys',letter:'FCO',color:'var(--blue)',tag:'single',eligible:ok,reason:why,loanAmt:loan,origFee:orig,origRate:bOrigLabel,interest:int,gbcFee:gf,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'1st lien on new home',bestFor:`Cash-like offer at ${buyLTV}% LTV. ${bDownLabel} down. Win in competition. Close ~10 days.`,risk:`9.99% interest on full bridge. ${buyLTV===95?'Higher 1.5% origination at 95% LTV.':'Lower origination but need 10% down.'}`,speed:'~10d',complexity:3,proceedsUse:'Bridge refinanced into long-term mortgage. Departing sale proceeds = surplus.',maxLoanRule:`${buyLTV}% LTV on new home; min $200K; max $2.5M`,term:'12-mo balloon',buyLtvLabel:buyLTV+'%',buyLoan:loan,buyOrig:orig,sellLoan:0,sellOrig:0})}
 
   // 4. BBYS + IE 1st (allows mortgage payoff on sell-side)
   {const buyL=bLoan,sellRaw=Math.max(g90,0),sellLoan=Math.min(sellRaw,2e6);
-  const ok=sellLoan>=75000&&buyL>=2e5;
-  const why=sellLoan<75000?`Sell IE ${fmt(sellLoan)} < $75K min`:buyL<2e5?`Buy bridge < $200K min`:'';
+  const needsApprBIE1=(sellLoan>0&&sellLoan<75000)||(buyL>0&&buyL<2e5);
+  const ok=sellLoan>0&&buyL>0;
+  const why=sellLoan<=0?'No sell-side equity':buyL<=0?'No buy-side loan':'';
   const hasPayoff=M>0;
   const bie1Payoff=M;const bie1NetNew=Math.max(sellLoan-M,0);
   const gf=gbcFee(G,true),bOrig=buyL*bOrigRate,sOrig=sellLoan*.02;
   const bInt=buyL*.0999*(D/365),sInt=sellLoan*.0999*(D/365);
   const cost=gf+bOrig+sOrig+bInt+sInt;const ieNet=bie1NetNew-sOrig;const cash=gf+Math.max(bDown-Math.max(ieNet,0),0)+bOrig;
-  allPrograms.push({id:'bie1',name:`BBYS + IE 1st (${buyLTV}% LTV)`+(hasPayoff?' w/ Payoff':''),short:'BBYS + IE 1st',icon:'bie1',letter:'A+1',color:'var(--lime)',tag:'combo',eligible:ok,reason:why,loanAmt:buyL+sellLoan,origFee:bOrig+sOrig,origRate:`${bOrigLabel} buy + 2.0% sell`,interest:bInt+sInt,gbcFee:gf,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'1st lien new + 1st lien departing',bestFor:hasPayoff?`Pays off existing 1st lien. Two-loan combo at ${buyLTV}% LTV. IE net proceeds fund ${bDownLabel} down.`:`No mortgage. Two-loan combo at ${buyLTV}% LTV. IE proceeds fund ${bDownLabel} down.`,risk:hasPayoff?`Sell IE includes ${fmt(M)} mortgage payoff. Two loans accruing 9.99%.`:`Two loans accruing 9.99%. Buy-side at ${bOrigLabel} origination.`,speed:'~10–14d',complexity:hasPayoff?4:4,proceedsUse:'Sell IE repaid from departing sale. Buy bridge refinanced.',maxLoanRule:`Buy: ${buyLTV}% LTV new. Sell: 90% CLTV of GBC`,term:'12-mo balloon (both)',buyLtvLabel:buyLTV+'%',buyLoan:buyL,buyOrig:bOrig,sellLoan,sellOrig:sOrig,buyInt:bInt,sellInt:sInt,hasPayoff,payoffAmt:bie1Payoff,netNewAmt:bie1NetNew})}
+  allPrograms.push({id:'bie1',needsApproval:needsApprBIE1,name:`BBYS + IE 1st (${buyLTV}% LTV)`+(hasPayoff?' w/ Payoff':''),short:'BBYS + IE 1st',icon:'bie1',letter:'A+1',color:'var(--lime)',tag:'combo',eligible:ok,reason:why,loanAmt:buyL+sellLoan,origFee:bOrig+sOrig,origRate:`${bOrigLabel} buy + 2.0% sell`,interest:bInt+sInt,gbcFee:gf,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'1st lien new + 1st lien departing',bestFor:hasPayoff?`Pays off existing 1st lien. Two-loan combo at ${buyLTV}% LTV. IE net proceeds fund ${bDownLabel} down.`:`No mortgage. Two-loan combo at ${buyLTV}% LTV. IE proceeds fund ${bDownLabel} down.`,risk:hasPayoff?`Sell IE includes ${fmt(M)} mortgage payoff. Two loans accruing 9.99%.`:`Two loans accruing 9.99%. Buy-side at ${bOrigLabel} origination.`,speed:'~10–14d',complexity:hasPayoff?4:4,proceedsUse:'Sell IE repaid from departing sale. Buy bridge refinanced.',maxLoanRule:`Buy: ${buyLTV}% LTV new. Sell: 90% CLTV of GBC`,term:'12-mo balloon (both)',buyLtvLabel:buyLTV+'%',buyLoan:buyL,buyOrig:bOrig,sellLoan,sellOrig:sOrig,buyInt:bInt,sellInt:sInt,hasPayoff,payoffAmt:bie1Payoff,netNewAmt:bie1NetNew})}
 
   // 5. BBYS + IE 2nd
   {const buyL=bLoan,sellRaw=Math.max(g90-M,0),sellLoan=Math.min(sellRaw,2e6);
-  const ok=M>0&&sellLoan>=75000&&buyL>=2e5;
-  const why=M===0?'No mortgage → BBYS + IE 1st':sellLoan<75000?`Sell IE ${fmt(sellRaw)} < $75K`:buyL<2e5?'Buy bridge < $200K':'';
+  const needsApprBIE2=M>0&&((sellLoan>0&&sellLoan<75000)||(buyL>0&&buyL<2e5));
+  const ok=M>0&&sellRaw>0&&buyL>0;
+  const why=M===0?'No mortgage → BBYS + IE 1st':sellRaw<=0?'No equity above mortgage':buyL<=0?'No buy-side loan':'';
   const gf=gbcFee(G,true),bOrig=buyL*bOrigRate,sOrig=sellLoan*.02;
   const bInt=buyL*.0999*(D/365),sInt=sellLoan*.0999*(D/365);
   const cost=gf+bOrig+sOrig+bInt+sInt;const ieNet=sellLoan-sOrig;const cash=gf+Math.max(bDown-ieNet,0)+bOrig;
-  allPrograms.push({id:'bie2',name:`BBYS + IE 2nd (${buyLTV}% LTV)`,short:'BBYS + IE 2nd',icon:'bie2',letter:'A+2',color:'var(--indigo)',tag:'combo',eligible:ok,reason:why,loanAmt:buyL+sellLoan,origFee:bOrig+sOrig,origRate:`${bOrigLabel} buy + 2.0% sell`,interest:bInt+sInt,gbcFee:gf,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'1st lien new + 2nd lien departing',bestFor:`Has mortgage. Two-loan combo at ${buyLTV}% LTV. IE above mortgage covers ${bDownLabel} down.`,risk:`Two loans accruing 9.99%. Buy-side ${bOrigLabel} orig. Sell costs deducted from IE.`,speed:'~10–14d',complexity:4,proceedsUse:'Sell IE + mortgage repaid from departing sale. Buy bridge refinanced.',maxLoanRule:`Buy: ${buyLTV}% LTV new. Sell: 90% CLTV of GBC − mortgage`,term:'12-mo balloon (both)',buyLtvLabel:buyLTV+'%',buyLoan:buyL,buyOrig:bOrig,sellLoan,sellOrig:sOrig,buyInt:bInt,sellInt:sInt})}
+  allPrograms.push({id:'bie2',needsApproval:needsApprBIE2,name:`BBYS + IE 2nd (${buyLTV}% LTV)`,short:'BBYS + IE 2nd',icon:'bie2',letter:'A+2',color:'var(--indigo)',tag:'combo',eligible:ok,reason:why,loanAmt:buyL+sellLoan,origFee:bOrig+sOrig,origRate:`${bOrigLabel} buy + 2.0% sell`,interest:bInt+sInt,gbcFee:gf,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'1st lien new + 2nd lien departing',bestFor:`Has mortgage. Two-loan combo at ${buyLTV}% LTV. IE above mortgage covers ${bDownLabel} down.`,risk:`Two loans accruing 9.99%. Buy-side ${bOrigLabel} orig. Sell costs deducted from IE.`,speed:'~10–14d',complexity:4,proceedsUse:'Sell IE + mortgage repaid from departing sale. Buy bridge refinanced.',maxLoanRule:`Buy: ${buyLTV}% LTV new. Sell: 90% CLTV of GBC − mortgage`,term:'12-mo balloon (both)',buyLtvLabel:buyLTV+'%',buyLoan:buyL,buyOrig:bOrig,sellLoan,sellOrig:sOrig,buyInt:bInt,sellInt:sInt})}
 
   // 6. Cross Collateral
   {const maxN=P*1.05,maxC=c75-M,raw=Math.min(maxN,maxC);const loan=Math.min(Math.max(raw,0),3e6);
-  const ok=loan>=2e5;const why=loan<2e5?`Max loan ${fmt(raw)} < $200K min`:'';
+  const ccBlock=isCCBlocked();
+  const needsApprCC=!ccBlock&&loan>0&&loan<2e5;
+  const ok=!ccBlock&&loan>0;const why=ccBlock?('Cross Collateral unavailable: '+ccBlock):(loan<=0?'No loan available':'');
   const ltvN=P>0?loan/P:0,or_=ltvN>.9?.015:.01,orig=loan*or_,int=loan*.0999*(D/365);
   const cost=orig+int,cash=Math.max(P-loan,0);
   const partial=Math.min(Math.max(net,0),loan),remain=Math.max(loan-partial,0);
-  allPrograms.push({id:'cc',name:'Cross Collateral',short:'Cross Collateral',icon:'cc',letter:'CC',color:'var(--pink)',tag:'single',eligible:ok,reason:why,loanAmt:loan,origFee:orig,origRate:(or_*100).toFixed(1)+'%',interest:int,gbcFee:0,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'Lien on both properties',bestFor:'$0 out of pocket. Max leverage. No GBC. Primary only.',risk:'Primary only. Most complex. Partial P+I at departing sale; rest at maturity.',speed:'~10d',complexity:5,proceedsUse:`Partial (${fmt(partial)}) + int at sale. Remainder (${fmt(remain)}) at maturity.`,maxLoanRule:'Min(105% LTV new, 75% CLTV combined − mtg); min $200K; max $3M',term:'11-mo balloon',buyLtvLabel:P>0?pct(loan/P):'N/A',buyLoan:loan,buyOrig:orig,sellLoan:0,sellOrig:0})}
+  allPrograms.push({id:'cc',needsApproval:needsApprCC,name:'Cross Collateral',short:'Cross Collateral',icon:'cc',letter:'CC',color:'var(--pink)',tag:'single',eligible:ok,reason:why,loanAmt:loan,origFee:orig,origRate:(or_*100).toFixed(1)+'%',interest:int,gbcFee:0,totalCost:cost,cashReq:cash,liqPass:L>=cash,lienPos:'Lien on both properties',bestFor:'$0 out of pocket. Max leverage. No GBC. Primary only.',risk:'Primary only. Most complex. Partial P+I at departing sale; rest at maturity.',speed:'~10d',complexity:5,proceedsUse:`Partial (${fmt(partial)}) + int at sale. Remainder (${fmt(remain)}) at maturity.`,maxLoanRule:'Min(105% LTV new, 75% CLTV combined − mtg); min $200K; max $3M',term:'11-mo balloon',buyLtvLabel:P>0?pct(loan/P):'N/A',buyLoan:loan,buyOrig:orig,sellLoan:0,sellOrig:0})}
 
   const programs=allPrograms.filter(p=>selectedPrograms.has(p.id));
   if(!programs.length){hideResults();return}
@@ -561,6 +607,7 @@ function runAnalysis(){
   // HERO
   const oldNote=document.querySelector('#rec-hero .ltv-note');if(oldNote)oldNote.remove();
   const oldPayoff=document.querySelector('#rec-hero .payoff-note');if(oldPayoff)oldPayoff.remove();
+  const oldApproval=document.querySelector('#rec-hero .approval-note');if(oldApproval)oldApproval.remove();
   const h=$('rec-hero'),rEl=$('runner-up');h.style.display='';
   if(rec){
     h.classList.remove('no-runner');$('rec-name').textContent=rec.name;
@@ -612,6 +659,16 @@ function runAnalysis(){
       // Insert after rec-stats (or after ltv-note if present)
       const insertTarget=document.querySelector('#rec-hero .ltv-note')||$('rec-stats');
       insertTarget.insertAdjacentHTML('afterend',payoffHTML);
+    }
+    // Append approval note if recommended program is below loan minimum
+    if(rec.needsApproval){
+      const minAmt=['ie1','ie2'].includes(rec.id)?'$75K':['bbys','cc'].includes(rec.id)?'$200K':['bie1','bie2'].includes(rec.id)?'$75K IE / $200K BBYS':'';
+      const approvalHTML=`<div class="approval-note">
+        <div class="approval-label">⚠ Approval Required — Loan Below Minimum</div>
+        Loan amount (${fmt(rec.loanAmt)}) is below the standard minimum${minAmt?' of '+minAmt:''}. Please connect with <strong>Medha</strong> and <strong>Ami</strong> for approval before proceeding.
+      </div>`;
+      const apprTarget=document.querySelector('#rec-hero .payoff-note')||document.querySelector('#rec-hero .ltv-note')||$('rec-stats');
+      apprTarget.insertAdjacentHTML('afterend',approvalHTML);
     }
     if(ru){rEl.style.display='';h.classList.remove('no-runner');const cd=ru.totalCost-rec.totalCost;$('ru-text').innerHTML=`<strong>${ru.name}</strong> — cost ${fmt(ru.totalCost)} (${cd>0?'+':''}${fmt(cd)}), cash ${fmt(ru.cashReq)}.`}
     else{rEl.style.display='none';h.classList.add('no-runner')}
@@ -683,6 +740,7 @@ function runAnalysis(){
         <div class="best-label">Best For</div><div class="best-text">${p.bestFor}</div>
         <div class="risk-text">⚠ ${p.risk}</div>
       </div></div>
+      ${p.needsApproval?'<div class="card-approval">⚠ Loan below minimum — Contact Medha &amp; Ami for approval</div>':''}
       ${selectBtn}</div>`;
   }).join('');
 
@@ -747,7 +805,7 @@ function runAnalysis(){
 
   // Store globally for PDF export
   window._lastRec=rec;
-  window._lastInputs={P,S,M,L,G,D,net,eqPct,ltv,buyLTV};
+  window._lastInputs={P,S,M,L,G,D,net,eqPct,ltv,buyLTV,buyState:$('in_buy_state').value,sellState:$('in_sell_state').value};
   $('pdf-btn-area').style.display=rec?'':'none';
 
   $('rec-hero').scrollIntoView({behavior:'smooth',block:'start'});
@@ -784,6 +842,8 @@ function generatePDF(){
           '<div class="p-detail"><span class="p-dl">GBC Value</span><span class="p-dv">'+f(inp.G)+'</span></div>'+
           '<div class="p-detail"><span class="p-dl">Mortgage Balance</span><span class="p-dv">'+f(inp.M)+'</span></div>'+
           '<div class="p-detail"><span class="p-dl">Hold Period</span><span class="p-dv">'+inp.D+' days</span></div>'+
+          '<div class="p-detail"><span class="p-dl">Buy Side State</span><span class="p-dv">'+(inp.buyState||'\u2014')+'</span></div>'+
+          '<div class="p-detail"><span class="p-dl">Sell Side State</span><span class="p-dv">'+(inp.sellState||'\u2014')+'</span></div>'+
         '</div>'+
       '</div>'+
       '<div class="p-section">'+
